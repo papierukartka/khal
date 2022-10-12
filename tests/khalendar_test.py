@@ -618,3 +618,10 @@ def test_birthdays_no_year(coll_vdirs_birthday, sleep_time):
     events = list(coll.get_floating(dt.datetime(1971, 3, 11), dt.datetime(1971, 3, 11, 23, 59, 59)))
     assert len(events) == 1
     assert 'Unix\'s birthday' == events[0].summary
+
+
+def test_recurring_event_delete_multiple_instances(coll_vdirs, sleep_time):
+    coll, vdirs = coll_vdirs
+
+    event = Event.fromString(_get_text('event_dt_recuid_no_master'), calendar=cal1, locale=LOCALE_BERLIN)
+    assert event.etag is None
